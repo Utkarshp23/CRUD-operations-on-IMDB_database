@@ -6,13 +6,14 @@ const { connect } = require('http2')
 // const { hostname } = require('os')
 
 var app = exp()
-app.use(bp.urlencoded({ extended: true }))
+app.use(bp.json())
 app.use(cors())
 
 var con = sql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  // password: 'root',
+  password: 'root1234',
   // port:3306,
   database: 'test'
 })
@@ -32,5 +33,28 @@ app.get('/emps', (req, res) => {
       res.send(JSON.stringify(data))
     }
   })
+})
+
+app.post('/emps/create', (req, res) => {
+  console.log(' Request recieved....')
+  console.log(req.body)
+  var comm = req.body.comm
+  var deptno = req.body.deptno
+  var empno = req.body.empno
+  var ename = req.body.ename
+  var hiredate = req.body.hiredate
+  var job = req.body.job
+  var mgr = req.body.mgr
+  var netsal = req.body.netsal
+  var sal = req.body.sal
+
+  con.query(`insert into emp values(${empno},"${ename}","${job}",${mgr},"${hiredate}",${sal},${comm},${netsal},${deptno})`, (err, data) => {
+    if (!err)
+      res.send(JSON.stringify(data))
+    else
+      console.log(err)
+
+  })
+
 })
 app.listen(9000, console.log("Server Started..."))

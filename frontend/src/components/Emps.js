@@ -31,10 +31,11 @@ const Emps = () => {
   return (
     <div>
       <button onClick={(e) => handleClick(e)}>Get Emps</button>
+      {/* <bu */}
       <div>
         <ul>
-          {emp.map((v) => {
-            return <li>{v.ENAME}</li>;
+          {emp.map((v, i) => {
+            return <li key={i}>{v.ENAME}</li>;
           })}
         </ul>
       </div>
