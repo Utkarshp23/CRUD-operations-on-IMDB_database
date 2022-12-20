@@ -38,15 +38,15 @@ app.get('/emps', (req, res) => {
 app.post('/emps/create', (req, res) => {
   console.log(' Request recieved....')
   console.log(req.body)
-  var comm = req.body.comm
-  var deptno = req.body.deptno
-  var empno = req.body.empno
-  var ename = req.body.ename
-  var hiredate = req.body.hiredate
-  var job = req.body.job
-  var mgr = req.body.mgr
-  var netsal = req.body.netsal
-  var sal = req.body.sal
+  var comm = req.body.comm.value
+  var deptno = req.body.deptno.value
+  var empno = req.body.empno.value
+  var ename = req.body.ename.value
+  var hiredate = req.body.hiredate.value
+  var job = req.body.job.value
+  var mgr = req.body.mgr.value
+  var netsal = req.body.netsal.value
+  var sal = req.body.sal.value
 
   con.query(`insert into emp values(${empno},"${ename}","${job}",${mgr},"${hiredate}",${sal},${comm},${netsal},${deptno})`, (err, data) => {
     if (!err)
