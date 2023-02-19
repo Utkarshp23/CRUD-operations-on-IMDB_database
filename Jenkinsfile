@@ -17,11 +17,11 @@
 // }
 
 pipeline {
-    agent { 
-        node {
-            label 'jenkins-agent-goes-here'
-            }
-      }
+//     agent { 
+//         node {
+//             label 'jenkins-agent-goes-here'
+//             }
+//       }
     stages {
         stage('Build') {
             steps {
