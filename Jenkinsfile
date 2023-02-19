@@ -22,13 +22,13 @@ pipeline {
 //             label 'jenkins-agent-goes-here'
 //             }
 //       }
-    agent any
+    agent { dockerfile true }
     stages {
         stage('Build') {
             steps {
                 echo "Building.."
                 sh '''
-                echo "doing build stuff.."
+                docker build -t reactapp:latest .
                 '''
             }
         }
