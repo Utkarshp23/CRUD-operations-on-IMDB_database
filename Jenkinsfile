@@ -16,36 +16,57 @@
 //     }
 // }
 
-pipeline {
-//     agent { 
-//         node {
-//             label 'jenkins-agent-goes-here'
+// pipeline {
+// //     agent { 
+// //         node {
+// //             label 'jenkins-agent-goes-here'
+// //             }
+// //       }
+//     agent { dockerfile true }
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 echo "Building.."
+//                 sh '''
+//                 docker build -t reactapp:latest .
+//                 '''
 //             }
-//       }
-    agent { dockerfile true }
+//         }
+//         stage('Test') {
+//             steps {
+//                 echo "Testing.."
+//                 sh '''
+//                 echo "doing test stuff.."
+//                 '''
+//             }
+//         }
+//         stage('Deliver') {
+//             steps {
+//                 echo 'Deliver....'
+//                 sh '''
+//                 echo "doing delivery stuff.."
+//                 '''
+//             }
+//         }
+//     }
+// }
+
+pipeline {
+    agent {
+        docker {
+            image 'node:lts-bullseye-slim'
+            args '-p 3000:3000'
+        }
+    }
     stages {
         stage('Build') {
             steps {
-                echo "Building.."
-                sh '''
-                docker build -t reactapp:latest .
-                '''
+                sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('Test') { 
             steps {
-                echo "Testing.."
-                sh '''
-                echo "doing test stuff.."
-                '''
-            }
-        }
-        stage('Deliver') {
-            steps {
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
+                sh 'npm start' 
             }
         }
     }
